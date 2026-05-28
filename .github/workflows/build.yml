@@ -94,12 +94,13 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install scikit-build-core pybind11 ninja build wheel
 
-      - name: Build wheel
+       - name: Build wheel
         shell: pwsh
         env:
           CMAKE_GENERATOR: Ninja
           CUDACXX: C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.4\bin\nvcc.exe
           CUDAHOSTCXX: cl.exe
+          CMAKE_ARGS: "-DCMAKE_CUDA_FLAGS=-allow-unsupported-compiler"
         run: |
           python -m build --wheel
 
