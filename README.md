@@ -212,9 +212,10 @@ src/
     DCTCommon.cuh
     bindings.cpp
 
-cuDCT/
-    native.py
-    torch.py
+python/
+    cuDCT/
+        native.py
+        torch.py
 ```
 
 ---
