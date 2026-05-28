@@ -259,8 +259,6 @@ def run_one(name, ndim, shape, Module, seed):
 
 
 def main():
-    torch.backends.cuda.matmul.allow_tf32 = False
-    torch.backends.cudnn.allow_tf32 = False
 
     tests = [
         ("1D", 1, DCTIDCT1D, [
