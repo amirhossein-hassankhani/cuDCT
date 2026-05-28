@@ -16,8 +16,7 @@ jobs:
       image: nvidia/cuda:12.4.1-devel-ubuntu22.04
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Install system packages
         run: |
@@ -26,26 +25,20 @@ jobs:
             python3 \
             python3-dev \
             python3-pip \
-            python3-venv \
             build-essential \
             cmake \
             ninja-build \
             git
 
-      - name: Upgrade pip
+      - name: Install Python build deps
         run: |
           python3 -m pip install --upgrade pip
-
-      - name: Install build dependencies
-        run: |
-          python3 -m pip install \
-            scikit-build-core \
-            pybind11 \
-            ninja \
-            build \
-            wheel
+          python3 -m pip install scikit-build-core pybind11 ninja build wheel
 
       - name: Build wheel
+        env:
+          CMAKE_GENERATOR: Ninja
+          CUDACXX: /usr/local/cuda/bin/nvcc
         run: |
           python3 -m build --wheel
 
@@ -73,8 +66,7 @@ jobs:
     runs-on: windows-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -88,13 +80,26 @@ jobs:
         uses: Jimver/cuda-toolkit@v0.2.21
         with:
           cuda: "12.4.1"
+          method: network
 
-      - name: Install build dependencies
+      - name: Check CUDA
+        shell: pwsh
+        run: |
+          where nvcc
+          nvcc --version
+          echo "CUDA_PATH=$env:CUDA_PATH"
+
+      - name: Install Python build deps
         run: |
           python -m pip install --upgrade pip
           python -m pip install scikit-build-core pybind11 ninja build wheel
 
       - name: Build wheel
+        shell: pwsh
+        env:
+          CMAKE_GENERATOR: Ninja
+          CUDACXX: C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.4\bin\nvcc.exe
+          CUDAHOSTCXX: cl.exe
         run: |
           python -m build --wheel
 
