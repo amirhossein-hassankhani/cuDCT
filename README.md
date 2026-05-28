@@ -32,9 +32,9 @@ v = [x0, x2, x4, ..., x5, x3, x1]
 
 A real-to-complex FFT is then applied, followed by a phase correction:
 
-\[
+```math
 e^{-j \pi k / (2N)}
-\]
+```
 
 to recover the DCT coefficients.
 
