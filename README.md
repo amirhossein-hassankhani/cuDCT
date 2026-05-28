@@ -2,7 +2,7 @@
 
 Fast CUDA/cuFFT-based DCT-II and inverse DCT for 1D, 2D, and 3D tensors.
 
-`cuDCT` implements orthonormal discrete cosine transforms directly on the GPU using FFT-based algorithms derived from the Makhoul method. The library is designed for tensor workflows and exposes zero-copy DLPack bindings. There is already a PyTorch wrapper class with autograd support.
+`cuDCT` implements orthonormal discrete cosine transforms directly on the GPU using FFT-based algorithms derived from the Makhoul method. The library is designed for tensor workflows and exposes zero-copy DLPack bindings. There is already a PyTorch wrapper class with autograd support. This implementation is ideal for cases where the size is fixed but the conetent change during each iteration. 
 
 ---
 
