@@ -226,8 +226,4 @@ python/
 - Batched transforms
 - Multi-GPU support
 
----
 
-## License
-
-MIT
